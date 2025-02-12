@@ -1,13 +1,10 @@
 {
   "name": "idurar-erp-crm",
   "version": "4.1.0",
-  "engines": {
-    "npm": "10.2.4",
-    "node": "20.9.0"
-  },
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js --ignore public/",
+    "build": "echo 'No Build'",
     "production": "NODE_ENV=production",
     "setup": "node src/setup/setup.js",
     "upgrade": "node src/setup/upgrade.js",
@@ -47,16 +44,5 @@
   "_moduleAliases": {
     "@": "src"
   },
-  "main": "server.js",
-  "author": "IDURAR",
-  "email": "hello@idurarapp.com",
-  "license": "Fair-code License",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/idurar/idurar-erp-crm/.git"
-  },
-  "bugs": {
-    "url": "https://github.com/idurar/idurar-erp-crm//issues"
-  },
-  "homepage": "https://github.com/idurar/idurar-erp-crm/#readme"
+  "main": "server.js"
 }
