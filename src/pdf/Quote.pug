@@ -1,0 +1,130 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title Kepsgurih ERP - Invoice
+    link(rel="shortcut icon" type="image/png" href="/images/icons/favicon.png")
+    style.
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-size: 10px;
+      }
+      body {
+        font-family: 'Arial', sans-serif;
+        background: #F4F4F4;
+        color: #3A506B;
+        font-size: 12px;
+        padding: 20px;
+      }
+      .container {
+        max-width: 750px;
+        background: white;
+        padding: 20px;
+        margin: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #3A506B;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+      }
+      .company-info {
+        text-align: right;
+        font-size: 12px;
+      }
+      .invoice-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #3A506B;
+        margin: 0;
+      }
+      .details {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 8px;
+      }
+      .table-invoice {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 8px;
+      }
+      .table-invoice th, .table-invoice td {
+        padding: 6px;
+        text-align: right;
+      }
+      .table-invoice th {
+        background: #3A506B;
+        color: white;
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+      .table-invoice tbody tr:nth-child(even) {
+        background: #E4E4E4;
+      }
+      .total {
+        font-weight: bold;
+        background: #DCE2F0;
+      }
+      .footer {
+        text-align: center;
+        font-size: 11px;
+        margin-top: 15px;
+        color: #666;
+      }
+
+  body
+    .container
+      .header
+        h1.invoice-title #{translate('quote')}
+        .company-info
+          p.strong #{settings.company_name}
+          p #{settings.company_address}
+          p #{settings.company_reg_number}
+
+      .details
+        .left
+          p.strong #{translate('Date')}: #{moment(model.date).format(dateFormat)}
+          p.strong #{translate('Expired Date')}: #{moment(model.expiredDate).format(dateFormat)}
+          p.strong #{translate('Number')}: # #{model.number}/#{model.year || ""}
+        .right
+          p.strong #{translate('Client')}: 
+          p #{model.client.name}
+          p #{model.client.address}
+          p #{model.client.phone}
+          p #{model.client.email}
+
+      table.table-invoice
+        thead
+          tr
+            th #{translate('Item')}
+            th #{translate('Quantity')}
+            th #{translate('Price')}
+            th #{translate('Total')}
+        tbody
+          each item in model.items
+            tr
+              td #{item.itemName}
+              td #{item.quantity}
+              td #{moneyFormatter({amount:item.price})}
+              td #{moneyFormatter({amount:item.total})}
+          tr.total
+            td(colspan='3') #{translate('Sub Total')}
+            td #{moneyFormatter({amount:model.subTotal})}
+          tr.total
+            td(colspan='3') #{translate('Tax')} #{model.taxRate}%
+            td #{moneyFormatter({amount:model.taxTotal})}
+          tr.total
+            td(colspan='3') #{translate('Total')}
+            td #{moneyFormatter({amount:model.total})}
+
+      .footer
+        p Invoice was created digitally - kepsgurih ERP
