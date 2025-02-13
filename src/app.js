@@ -15,7 +15,6 @@ const errorHandlers = require('./handlers/errorHandlers');
 const erpApiRouter = require('./routes/appRoutes/appApi');
 
 const fileUpload = require('express-fileupload');
-// create our Express app
 const app = express();
 
 app.use(
